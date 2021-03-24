@@ -1,0 +1,11 @@
+{
+    "id": "default0",
+    "version": "1_0",
+    "name": "Default bundle",
+    "comment": "Default bundle",
+    "whitelisted_images": [],
+    "blacklisted_images": [],
+    "mappings": [],
+    "whitelists": [],
+    "policies": []
+  }
