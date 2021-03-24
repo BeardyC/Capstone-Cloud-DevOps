@@ -57,7 +57,7 @@ jobs:
       - store_artifacts:
           path: anchore-reports
 
-  build_image:
+  upload_image:
     docker:
       - image: circleci/golang:1.15
         auth:
