@@ -102,8 +102,9 @@ jobs:
       - run: 
          name: update deployment
          command: |
-           ls -lah ~/
-           TAG=`cat ~/tag.txt`
+           ls -lah 
+           TAG=`cat tag.txt`
+           echo $TAG
            ./kubectl set image deployment/housingmlapi -n mlapi housepricemlapi=beardyc/housepricemlapi:$TAG --record   
            ./kubectl rollout status deployment/housingmlapi -n mlapi
            ./kubectl get all -n mlapi
