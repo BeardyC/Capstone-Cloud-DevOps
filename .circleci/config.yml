@@ -111,9 +111,10 @@ workflows:
   default:
     jobs:
       - lint
-      - local_image_scan
+      - local_image_scan:
+          requires: [lint]
       - upload_image:
-          requires: [lint, local_image_scan]
+          requires: [local_image_scan]
       - rolling_upgrade:
           requires: [upload_image]
 
