@@ -76,13 +76,15 @@ jobs:
       - run:
           name: install kubectl 
           command: |
-            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+            curl -LO "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64"
             chmod +x kubectl
             ./kubectl version --client
       - run:
           name: install jq
           command: |
-            apt-get install jq
+            curl -LO "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64"
+            mv jq-linux64 jq
+            chmod +x jq
       - run: | 
           aws eks --region us-west-2 update-kubeconfig --name test-cluster2
           ./kubectl get all -n mlapi
