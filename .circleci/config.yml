@@ -66,13 +66,20 @@ jobs:
       - run: |
           echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
           TAG=0.1.$CIRCLE_BUILD_NUM
+          cat $TAG > ~/tag.txt
           docker build -t $DOCKER_LOGIN/housepricemlapi:$TAG .
-          docker push $DOCKER_LOGIN/housepricemlapi:$TAG   
+          docker push $DOCKER_LOGIN/housepricemlapi:$TAG  
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - ~/tag.txt
 
   rolling_upgrade:
     <<: *aws-base
     steps:
       - checkout
+      - attach_workspace:
+          at: ~/
       - run:
           name: install kubectl 
           command: |
@@ -93,7 +100,8 @@ jobs:
       - run: 
          name: update deployment
          command: |
-           TAG=0.1.$CIRCLE_BUILD_NUM
+
+           TAG=`cat ~/tag,txt`
            ./kubectl set image deployment/housingmlapi -n mlapi housepricemlapi=beardyc/housepricemlapi:$TAG   
            ./kubectl rollout status deployment/housingmlapi -n mlapi
            ./kubectl get all -n mlapi
