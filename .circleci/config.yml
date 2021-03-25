@@ -81,6 +81,7 @@ jobs:
             ./kubectl version --client
       - run: | 
           aws eks --region us-west-2 update-kubeconfig --name test-cluster2
+          ./kubectl get all -n mlapi
 
 
 workflows:
