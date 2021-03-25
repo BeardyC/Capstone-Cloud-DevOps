@@ -68,6 +68,8 @@ jobs:
           echo $DOCKER_PWD | docker login -u $DOCKER_LOGIN --password-stdin
           TAG=0.1.$CIRCLE_BUILD_NUM
           cat $TAG > ~/tag.txt
+          ls -lah 
+          ls -lah ~/
           docker build -t $DOCKER_LOGIN/housepricemlapi:$TAG .
           docker push $DOCKER_LOGIN/housepricemlapi:$TAG  
       - persist_to_workspace:
