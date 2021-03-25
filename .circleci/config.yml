@@ -59,7 +59,7 @@ jobs:
 
   upload_image:
     docker:
-      - image: circleci/golang:1.15
+      - image: circleci/buildpack-deps:stretch
         auth:
           username: beardyc
           password: $DOCKERHUB_PASSWORD
