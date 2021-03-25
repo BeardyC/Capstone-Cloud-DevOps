@@ -88,8 +88,16 @@ jobs:
       - run: | 
           aws eks --region us-west-2 update-kubeconfig --name test-cluster2
           ./kubectl get all -n mlapi
+          ./kubectl set image deployment/housingmlapi 
           url=$(./kubectl get services -n mlapi -o json | ./jq -r .items[].status.loadBalancer.ingress[].hostname)
           echo $url
+      - run: 
+         name: update deployment
+         command: |
+           TAG=0.1.$CIRCLE_BUILD_NUM
+           ./kubectl set image deployment/housingmlapi -n mlapi housepricemlapi=beardyc/housepricemlapi:$TAG   
+           ./kubectl rollout status deployment/housingmlapi -n mlapi
+           ./kubectl get all -n mlapi
 
 
 workflows:
