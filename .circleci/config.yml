@@ -59,7 +59,7 @@ jobs:
 
   upload_image:
     docker:
-      - image: circleci/node:12
+      - image:  circleci/buildpack-deps:stretch
     steps:
       - checkout
       - setup_remote_docker
