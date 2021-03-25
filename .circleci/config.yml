@@ -79,6 +79,10 @@ jobs:
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
             chmod +x kubectl
             ./kubectl version --client
+      - run:
+          name: install jq
+          command: |
+            apt-get install jq
       - run: | 
           aws eks --region us-west-2 update-kubeconfig --name test-cluster2
           ./kubectl get all -n mlapi
