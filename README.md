@@ -11,3 +11,6 @@ Cluster has been set up with ```eskctl``` using the following
 ```
 eksctl create cluster --name $clusterName --nodegroup-name linux-nodes --node-type t2.micro --nodes 2
 ```
+
+
+Running ```make_predictions.sh``` will hit the LB service to get a result from the app.
