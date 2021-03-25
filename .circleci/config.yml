@@ -118,6 +118,6 @@ workflows:
       #- local_image_scan
       - upload_image
       #    requires: [lint]
-      - rolling_upgrade
+      - rolling_upgrade:
           requires: [upload_image]
 
