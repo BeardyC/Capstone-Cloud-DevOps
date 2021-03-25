@@ -79,9 +79,9 @@ jobs:
     <<: *aws-base
     steps:
       - checkout
+      - run: yum install -y tar gzip
       - attach_workspace:
           at: ~/
-      - run: yum install -y tar gzip
       - run:
           name: install kubectl 
           command: |
