@@ -76,7 +76,7 @@ jobs:
       - run:
           name: install kubectl 
           command: |
-            curl -LO "https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64"
+            curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
             chmod +x kubectl
             ./kubectl version --client
       - run:
