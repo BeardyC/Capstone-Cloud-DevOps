@@ -78,7 +78,8 @@ jobs:
           command: |
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
             kubectl version --client
-      - aws eks --region us-west-2 update-kubeconfig --name test-cluster2
+      - run: | 
+          aws eks --region us-west-2 update-kubeconfig --name test-cluster2
 
 
 workflows:
