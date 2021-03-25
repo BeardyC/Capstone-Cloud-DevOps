@@ -1,7 +1,13 @@
 orbs:
   anchore: anchore/anchore-engine@1.6.0
-
+  aws-eks: circleci/aws-eks@0.2.3
+  kubernetes: circleci/kubernetes@0.4.0
 version: 2.1
+
+aws-base: &aws-base
+  docker:
+    - image: amazon/aws-cli
+    
 jobs:
   lint:
     docker:
@@ -63,7 +69,16 @@ jobs:
           TAG=0.1.$CIRCLE_BUILD_NUM
           docker build -t $DOCKER_LOGIN/housepricemlapi:$TAG .
           docker push $DOCKER_LOGIN/housepricemlapi:$TAG   
-
+  rolling_upgrade:
+    executor: aws-eks/python3
+    steps:
+      - checkout
+      - aws-eks/update-kubeconfig-with-authenticator:
+          cluster-name: test2
+          install-kubectl: 
+      - run: |
+          kubectl get all -n mlapi
+      
 workflows:
   default:
     jobs:
@@ -71,4 +86,6 @@ workflows:
       - local_image_scan
       - upload_image:
           requires: [lint, local_image_scan]
+      - rolling_upgrade:
+          requires: [upload_image]
 
